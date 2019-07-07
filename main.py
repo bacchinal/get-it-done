@@ -10,13 +10,31 @@ db = SQLAlchemy(app)
 class Task(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String(128))
+    name = db.Column(db.String(120))
     completed = db.Column(db.Boolean)
 
     def __init__(self, name ):
         self.name = name
         self.completed = False
 
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True)
+    password = db.Column(db.String(120))
+
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+
+
+
+@app.route('/login')
+def login():    return render_template('login.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -44,6 +62,7 @@ def delete_task():
     db.session.commit()
 
     return redirect('/')
+
 
 if __name__ == '__main__':
     app.run()
