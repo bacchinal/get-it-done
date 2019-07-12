@@ -75,9 +75,6 @@ def register():
             #TODO - user better response messaging
             return '<h1>Duplicate user</h1>'
         
-
-
-
     return render_template('register.html')
 
 @app.route('/logout')
